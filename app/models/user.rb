@@ -5,4 +5,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
          :jwt_authenticatable, jwt_revocation_strategy: self
+  has_many :appointments
+  has_many :doctors, through: :appointments
+  validates :name, presence: true
+  validates :email, presence: true, uniqueness: true
 end
